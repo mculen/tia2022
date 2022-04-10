@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import './App.css';
 import Header from "./components/header";
-import DocumentList from "./components/documentList";
+import ListOrUpload from "./components/listOrUpload";
 import LoginOrRegister from "./components/loginOrRegister"
 
 class App extends Component {
@@ -49,7 +49,7 @@ class App extends Component {
         <Header logged_user={this.state.logged_user} logOutFunction={this.logOut.bind(this)}/>
         {
           this.state.logged_user.logged_in ?
-            <DocumentList />
+            <ListOrUpload />
           : <LoginOrRegister logInFunction={this.logIn.bind(this)}/>
         }
       </div>

@@ -2,9 +2,10 @@ import React, { Component } from "react";
 import DocumentListEntry from "./documentListEntry";
 
 class DocumentList extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = { items: [] }
+    this.switchToUpload = props.switchToUpload;
   }
 
   async componentDidMount() {
@@ -26,6 +27,9 @@ class DocumentList extends Component {
           {console.log(items)}{items.map((o) => {
               return <DocumentListEntry doc={o}/>;
             })}
+          <div className="docEntry">
+            <a href="#" onClick={this.switchToUpload}>Pridať dokument...</a>
+          </div>
         </div>
       );
     }
