@@ -9,7 +9,7 @@
 8. Plány na ďalší týždeň: vylepšovanie doterajšej funkcionality, spracovanie chýb, adresárová štruktúra, kategórie
 9. Probémy: nechutné množstvo času strávené bojovaním s konfiguráciou servera pre verejný prístup a upload dokumentov
 
-10. Linka na verejnú inštanciu: http://culen.asuscomm.com/
+10. Linka na verejnú inštanciu: http://tia2022.asuscomm.com/
 11. Stav projektu:
  - implementované/rozpracované(\*) features: kostra aplikácie, databázová štruktúra/spojenie s databázou, používatelia - prihlasovanie, odhlasovanie, registrácia, výpis dokumentov, prezeranie dokumentov, upload dokumentov
   (\*) je ťažké označiť features za "hotové" -- ako implementujem ďalšie a ďalšie nové features, je nutné sa vracať a pracovať aj na starých, keďže spolu výrazne interagujú, a aj keď po čase implementujem všetku plánovanú základnú funkcionalitu, plánujem každú časť aplikácie čo najviac vylepšovať, podľa toho, koľko času mi na konci zostane
