@@ -7,14 +7,16 @@ const RegisterForm = (props) => {
   const [mail, setMail] = useState("");
 
   async function registerUser(login, password, name, mail) {
-   const response = await fetch('./register.php', {
+    var postData = new FormData();
+    postData.append("login", login);
+    postData.append("password", password);
+    postData.append("name", name);
+    postData.append("mail", mail); 
+    const response = await fetch('./register.php', {
       method: 'POST',
-      headers: new Headers({
-        'Content-Type': 'application/x-www-form-urlencoded',
-      }),
-      body: "login=" + login + "&password=" + password + "&name=" + name + "&mail=" + mail
+      body: postData
     });
-    const data = await response.json();
+    const responseJson = await response.json();
     await props.logInFunction(login, password);
   }
 

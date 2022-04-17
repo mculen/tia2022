@@ -6,14 +6,14 @@ const UploadForm = (props) => {
   const [name, setName] = useState("");
 
   async function uploadFile(name, file) {
-    var data = new FormData();
-    data.append("name", name);
-    data.append("file", file);
+    var postData = new FormData();
+    postData.append("name", name);
+    postData.append("file", file);
     const response = await fetch('./upload.php', {
         method: 'POST',
-        body: data
+        body: postData
     });
-    const response_json = await response.json();
+    const responseJson = await response.json();
     await props.switchToList();
   }
 

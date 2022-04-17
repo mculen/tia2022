@@ -20,18 +20,19 @@ const App = (props) => {
   const logIn = async (login, password) => {
     var response;
     if (login && password) {
+      var postData = new FormData();
+      postData.append("login", login);
+      postData.append("password", password);
       response = await fetch('./login.php', {
         method: 'POST',
-        headers: new Headers({
-          'Content-Type': 'application/x-www-form-urlencoded',
-        }),
-        body: "login=" + login + "&password=" + password
+        body: postData
       });
     } else {
       response = await fetch('./login.php');
     }
-    const data = await response.json();
-    setLoggedUser(data);
+    const responseJson = await response.json();
+    console.log(responseJson);
+    setLoggedUser(responseJson);
   }
 
   const logOut = async () => {
