@@ -62,3 +62,10 @@
   align-items: center;
   flex-direction: column;
 }
+
+.lorFormError {
+  justify-content: center;
+  align-items: center;
+  color: red;
+  width: 300px;
+}

@@ -4,10 +4,18 @@ const LoginForm = (props) => {
 
   const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
   
   async function handleSubmit(event) {
+    console.log(event);
     event.preventDefault();
-    await props.logInFunction(login, password);
+    const response = await props.logInFunction(login, password);
+    console.log(response);
+    if (!response.success) {
+      setError(response.error);
+    } else {
+      setError("");
+    }
   }
 
  return (
@@ -19,6 +27,7 @@ const LoginForm = (props) => {
              <div className="lorFormSubmit"><input type="submit" value="Prihlásiť" /></div>
              <a href="#" className="lorFormSwitch" onClick={props.switchToRegister}>Registrovať</a>
          </div>
+         <div className="lorFormError">{error}</div>
      </form>
    </div>
  );

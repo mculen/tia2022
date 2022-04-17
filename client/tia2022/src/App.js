@@ -8,15 +8,6 @@ const App = (props) => {
   
   const [loggedUser, setLoggedUser] = useState({ logged_in: false });
 
-  useEffect(() => {
-    const tryLogIn = async () => {
-      if (!loggedUser.logged_in)
-      await this.logIn();
-    }
-
-    tryLogIn().catch(console.log);
-  }, []);
-
   const logIn = async (login, password) => {
     var response;
     if (login && password) {
@@ -32,8 +23,21 @@ const App = (props) => {
     }
     const responseJson = await response.json();
     console.log(responseJson);
-    setLoggedUser(responseJson);
+    if (responseJson.success) {
+      setLoggedUser(responseJson.response);
+    }
+    return responseJson;
   }
+
+  useEffect(() => {
+    const tryLogIn = async () => {
+      if (!loggedUser.logged_in) {
+        await logIn();
+      }
+    }
+
+    tryLogIn().catch(console.log);
+  }, []);
 
   const logOut = async () => {
     await fetch('./logout.php');

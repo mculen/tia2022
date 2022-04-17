@@ -11,6 +11,8 @@ if (!isset($_SESSION['logged_in']) && isset($_POST['login'])) {
         $_SESSION['id'] = $dbuser->id;
         $_SESSION['login'] = $dbuser->login;
         $_SESSION['name'] = $dbuser->name;
+    } else {
+        $err = "Chybné meno alebo heslo";
     }
 }
 
@@ -20,6 +22,15 @@ if (isset($_SESSION['logged_in'])) {
     $res = (object)array('logged_in' => false);
 }
 
-echo json_encode($res);
+$ret = (object)array();
+if (isset($err)) {
+    $ret->success = false;
+    $ret->error = $err;
+} else {
+    $ret->success = true;
+    $ret->response = $res;
+}
+
+echo json_encode($ret);
 
 ?>

@@ -5,6 +5,7 @@ const RegisterForm = (props) => {
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [mail, setMail] = useState("");
+  const [error, setError] = useState("");
 
   async function registerUser(login, password, name, mail) {
     var postData = new FormData();
@@ -17,7 +18,11 @@ const RegisterForm = (props) => {
       body: postData
     });
     const responseJson = await response.json();
-    await props.logInFunction(login, password);
+    if (responseJson.success) {
+      await props.logInFunction(login, password);
+    } else {
+      setError(responseJson.error);
+    }
   }
 
   async function handleSubmit(event) {
@@ -36,6 +41,7 @@ const RegisterForm = (props) => {
               <div className="lorFormSubmit"><input type="submit" value="Registrovať" /></div>
               <a href="#" className="lorFormSwitch" onClick={props.switchToLogin}>Prihlásiť sa</a>
           </div>
+          <div className="lorFormError">{error}</div>
       </form>
     </div>
   );

@@ -4,6 +4,7 @@ const UploadForm = (props) => {
 
   const [selectedFile, setSelectedFile] = useState("");
   const [name, setName] = useState("");
+  const [error, setError] = useState("");
 
   async function uploadFile(name, file) {
     var postData = new FormData();
@@ -14,7 +15,11 @@ const UploadForm = (props) => {
         body: postData
     });
     const responseJson = await response.json();
-    await props.switchToList();
+    if (responseJson.success) {
+      await props.switchToList();
+    } else {
+      setError(responseJson.error);
+    }
   }
 
   async function handleSubmit(event) {
@@ -31,6 +36,7 @@ const UploadForm = (props) => {
               <div className="lorFormSubmit"><input type="submit" value="Pridať" /></div>
               <a href="#" className="lorFormSwitch" onClick={props.switchToList}>Zrušiť</a>
           </div>
+          <div className="lorFormError">{error}</div>
       </form>
     </div>
   );
