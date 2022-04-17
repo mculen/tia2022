@@ -1,19 +1,18 @@
 import React, { useState } from "react";
 
 const RegisterForm = (props) => {
+  const [login, setLogin] = useState("");
+  const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
+  const [mail, setMail] = useState("");
 
-   const [login, setLogin] = useState("");
-   const [password, setPassword] = useState("");
-   const [name, setName] = useState("");
-   const [mail, setMail] = useState("");
-console.log("reg", login, password);
-   async function registerUser(login, password, name, mail) {
-    const response = await fetch('./register.php', {
-        method: 'POST',
-        headers: new Headers({
-          'Content-Type': 'application/x-www-form-urlencoded',
-        }),
-        body: "login=" + login + "&password=" + password + "&name=" + name + "&mail=" + mail
+  async function registerUser(login, password, name, mail) {
+   const response = await fetch('./register.php', {
+      method: 'POST',
+      headers: new Headers({
+        'Content-Type': 'application/x-www-form-urlencoded',
+      }),
+      body: "login=" + login + "&password=" + password + "&name=" + name + "&mail=" + mail
     });
     const data = await response.json();
     await props.logInFunction(login, password);

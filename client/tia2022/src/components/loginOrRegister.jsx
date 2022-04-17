@@ -9,7 +9,6 @@ const LoginOrRegister = (props) => {
         setRegister(!isRegister);
     }
 
-    console.log("lor", props);
     const { logInFunction } = props;
 
     if (isRegister) {

@@ -9,7 +9,6 @@ const ListOrUpload = (props) => {
         setUploading(!isUploading);
     }
 
-    console.log("lou", props);
     const { logInFunction } = props;
 
     if (isUploading) {

@@ -6,7 +6,6 @@ const UploadForm = (props) => {
   const [name, setName] = useState("");
 
   async function uploadFile(name, file) {
-    console.log("upload", name, file);
     var data = new FormData();
     data.append("name", name);
     data.append("file", file);

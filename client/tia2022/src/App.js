@@ -1,25 +1,25 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import './App.css';
 import Header from "./components/header";
 import ListOrUpload from "./components/listOrUpload";
 import LoginOrRegister from "./components/loginOrRegister"
 
-class App extends Component {
-  constructor() {
-    super();
-    this.state = { logged_user: { logged_in: false } };
-  }
+const App = (props) => {
+  
+  const [loggedUser, setLoggedUser] = useState({ logged_in: false });
 
-  async componentDidMount() {
-    if (!this.state.logged_user.logged_in) {
+  useEffect(() => {
+    const tryLogIn = async () => {
+      if (!loggedUser.logged_in)
       await this.logIn();
     }
-  }
 
-  async logIn(login, password) {
+    tryLogIn().catch(console.log);
+  }, []);
+
+  const logIn = async (login, password) => {
     var response;
     if (login && password) {
-      console.log("lp login");
       response = await fetch('./login.php', {
         method: 'POST',
         headers: new Headers({
@@ -28,33 +28,27 @@ class App extends Component {
         body: "login=" + login + "&password=" + password
       });
     } else {
-      console.log("autologin");
       response = await fetch('./login.php');
     }
     const data = await response.json();
-    console.log("logIn", data);
-    this.setState({ logged_user: data });
-    console.log("logIn", data);
+    setLoggedUser(data);
   }
 
-  async logOut() {
+  const logOut = async () => {
     await fetch('./logout.php');
-    this.setState({ logged_user: { logged_in: false } });
+    setLoggedUser({ logged_in: false });
   }
 
-  render() {
-    console.log("render", this.state);
-    return (
-      <div className="App">
-        <Header logged_user={this.state.logged_user} logOutFunction={this.logOut.bind(this)}/>
-        {
-          this.state.logged_user.logged_in ?
-            <ListOrUpload />
-          : <LoginOrRegister logInFunction={this.logIn.bind(this)}/>
-        }
-      </div>
-    );
-  }
+  return (
+    <div className="App">
+      <Header logged_user={loggedUser} logOutFunction={logOut}/>
+      {
+        loggedUser.logged_in ?
+          <ListOrUpload />
+        : <LoginOrRegister logInFunction={logIn}/>
+      }
+    </div>
+  );
 }
 
 export default App;

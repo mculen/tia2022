@@ -1,7 +1,6 @@
 import React from "react";
 
 const Header = (props) => {
-  console.log("header", props);
   return (
     <header className="header">
       <span className="headerName">Správa elektronických dokumentov</span>

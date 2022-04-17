@@ -1,39 +1,32 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import DocumentListEntry from "./documentListEntry";
 
-class DocumentList extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { items: [] }
-    this.switchToUpload = props.switchToUpload;
-  }
+const DocumentList = (props) => {
+  const [items, setItems] = useState([]);
 
-  async componentDidMount() {
-    await this.getList();
-  }
-
-  async getList() {
-    const response = await fetch('./list.php');
-    const data = await response.json();
-    this.setState({ items: data });
-    console.log(data);
-  }
-
-  render() {
-    const { items } = this.state;
-    if (items) {
-      return (
-        <div className="documentList">
-          {console.log(items)}{items.map((o) => {
-              return <DocumentListEntry doc={o}/>;
-            })}
-          <div className="docEntry">
-            <a href="#" onClick={this.switchToUpload}>Pridať dokument...</a>
-          </div>
-        </div>
-      );
+  useEffect(() => {
+    const getList = async () => {
+      const response = await fetch('./list.php');
+      const data = await response.json();
+      setItems(data);
     }
+
+    getList().catch(console.log);
+  }, []);
+
+  var itemList = (<></>);
+  if (items) {
+    itemList = items.map((o) => <DocumentListEntry doc={o}/>);
   }
+
+  return (
+    <div className="documentList">
+      {itemList}
+      <div className="docEntry">
+        <a href="#" onClick={props.switchToUpload}>Pridať dokument...</a>
+      </div>
+    </div>
+  );
 }
 
 export default DocumentList;
