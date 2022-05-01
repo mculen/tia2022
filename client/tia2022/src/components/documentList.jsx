@@ -4,19 +4,19 @@ import DocumentListEntry from "./documentListEntry";
 const DocumentList = (props) => {
   const [items, setItems] = useState([]);
 
-  useEffect(() => {
-    const getList = async () => {
-      const response = await fetch('./list.php');
-      const data = await response.json();
-      setItems(data);
-    }
+  const updateList = async () => {
+    const response = await fetch('./list.php');
+    const data = await response.json();
+    setItems(data);
+  }
 
-    getList().catch(console.log);
+  useEffect(() => {
+    updateList().catch(console.log);
   }, []);
 
   var itemList = (<></>);
   if (items) {
-    itemList = items.map((o) => <DocumentListEntry doc={o}/>);
+    itemList = items.map((o) => <DocumentListEntry doc={o} update={updateList}/>);
   }
 
   return (
